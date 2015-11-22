@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Some realtime editor with preview...</title>
+        
+        <!-- set edge and viewport -->
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Bring in bootstrap... -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+        <!-- Custom CSS -->
+        <style>
+            body, html {
+                overflow:hidden;
+                height:100%;
+                width:100%;
+            }
+            iframe {
+                width:50%;
+                height:100%;
+                float:left;
+                position:absolute;
+                left:50%;
+            }
+            .theeditor {
+                margin: 0;
+                width:50%;
+                height:100%;
+                float:left;
+            }
+        </style>
+        <!-- Call in on load JS -->
+    </head>
+    <body>
+        <pre class="theeditor" id="editor"></pre>
+        <iframe class="thepreview" id="thepreview"></iframe>
+        <div class="thepreview" id="thepreview"></div>
+        <!-- Bring in jQuery -->
+        <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+        <!-- Bring in Bootstrap.js -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+        <!-- Bring in ACE Editor -->
+        <script src="/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom Application Logic -->
+        <script>
+            var editor = ace.edit("editor");
+            editor.setTheme("ace/theme/twilight");
+            editor.session.setMode("ace/mode/html");
+            editor.setValue('<!DOCTYPE html>\n<html>\n\t<head>\n\t<title>A random project...</title>\n\t\t<meta charset="utf-8">\n\t\t<meta http-equiv="X-UA-Compatible" content="IE=edge">\n\t\t<meta name="viewport" content="width=device-width, initial-scale=1">\n\t\t<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">\n\t</head>\n\t<body>\n\t\t<h1>Hello World</h1>\n\t\tYeah we are going to rule the world with this site... so freaking cool! Maybe... lol!\n\t\t<br>\n\t\tThis preview is Bootstrap powered too. So check out the awesomeness here!\n\t\t<br><br><br>\n\t\t<div class="container">\n\t\t\t<div class="row">\n\t\t\t\t<div class="col-xs-6">\n\t\t\t\t\t<a class="btn btn-lg btn-primary" href="http://unrestrictedcoding.com">Click here to go to our home site...</a>\n\t\t\t\t</div>\n\t\t\t\t<div class="col-xs-6">\n\t\t\t\t\t<div class="panel panel-info">\n\t\t\t\t\t\t<div class="panel-heading">Some random panel here!</div>\n\t\t\t\t\t\t<div class="panel-body">\n\t\t\t\t\t\t\tYeah we got this going do we?\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t<br><br>\n\t<p>\n\t\tThis is a realtime preview editor. Just type in the code editor on the left and you will see your results here in this screen in realtime. I\'ve setup this document for you to easily see the power of this editor.\n\t</p>\n\t</body>\n</html>', -1);
+            $('#thepreview').attr('src', 'data:text/html,' +encodeURIComponent(editor.getValue()));
+            
+            // or use data: url to handle things like doctype
+            function showHTMLInIFrame() {
+                $('#thepreview').attr('src', 'data:text/html,' +encodeURIComponent(editor.getValue()));
+            }
+            editor.on("input", showHTMLInIFrame)
+        </script>
+    </body>
+</html>

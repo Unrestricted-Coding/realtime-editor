@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Some realtime editor with preview...</title>
+        
+        <!-- set edge and viewport -->
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Bring in bootstrap... -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+        <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.0/css/bootstrap-toggle.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="/split-pane/split-pane.css">
+        <link rel="stylesheet" href="/split-pane/pretty-split-pane.css">
+        <!-- Custom CSS -->
+        <style>
+            body, html {
+                margin:0;
+                padding:0;
+            }
+            .clear-white-bg{
+                /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#adadad+0,adadad+100&amp;0.5+0,0.5+100 */
+                background: -moz-radial-gradient(center, ellipse cover,  rgba(173,173,173,0.5) 0%, rgba(173,173,173,0.5) 100%); /* FF3.6-15 */
+                background: -webkit-radial-gradient(center, ellipse cover,  rgba(173,173,173,0.5) 0%,rgba(173,173,173,0.5) 100%); /* Chrome10-25,Safari5.1-6 */
+                background: radial-gradient(ellipse at center,  rgba(173,173,173,0.5) 0%,rgba(173,173,173,0.5) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+                filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#80adadad', endColorstr='#80adadad',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+            }
+            .frame-label {
+                position:absolute;
+                top:0;
+                right:0;
+                margin-right:5px;
+                margin-top:5px;
+                width:60px;
+                height:20px;
+                z-index:99999;
+                padding-left:3px;
+                border-radius:5px;
+            }
+            .frame-label-html {
+                position:absolute;
+                top:0;
+                right:0;
+                margin-right:5px;
+                margin-top:5px;
+                width:60px;
+                height:20px;
+                z-index:99999;
+                padding-left:3px;
+                border-radius:5px;
+            }
+            .status-bar {
+                position:absolute;
+                left:0;
+                top:0;
+                bottom:0;
+                width:50px;
+                padding:8px;
+                background-color:#555;
+            }
+            iframe, .iframe-norm, #thepreview, #thepreview iframe {
+                border:0;
+                border-radius:0;
+                width:100%;
+                height:100%;
+                min-width:100%;
+                display:block;
+            }
+            #editor {
+                margin:0;
+                padding:0;
+                height:100%;
+                width:100%;
+                border:0;
+                border-radius:0;
+            }
+            #editor2 {
+                margin:0;
+                padding:0;
+                height:100%;
+                width:100%;
+                border:0;
+                border-radius:0;
+            }
+            #editor3 {
+                margin:0;
+                padding:0;
+                height:100%;
+                width:100%;
+                border:0;
+                border-radius:0;
+            }
+            #editor4, #editor5, #editor6 {
+                height:70px;
+            }
+            .theeditor-full {
+                margin:0;
+                width:100%;
+                height:100%;
+                float:left;
+                border:0;
+                border-radius:0;
+            }
+            .navbar {
+                border-radius:0;
+                margin:0;
+            }
+            .hidden-iframe {
+                display:none;
+            }
+            .pretty-split-pane-frame {
+                position:absolute;
+                left:50px;
+                right:0px;
+                top:0px;
+                bottom:0px;
+            }
+            .pretty-split-pane-component-inner {
+                padding:0;
+            }
+            #top-component {
+				bottom: 25em;
+				margin-bottom: 5px;
+			}
+			#horizontal-divider {
+				bottom: 25em;
+				height: 5px;
+			}
+			#bottom-component {
+				height: 25em;
+			}
+			#left-component {
+				width: 45em;
+			}
+			#vertical-divider {
+				left: 45em;
+				width: 5px;
+			}
+			#right-component {
+				left: 45em;
+				margin-left: 5px;
+			}
+			
+			#top-component2 {
+				bottom: 50%;
+				margin-bottom: 5px;
+			}
+			#horizontal-divider2 {
+				bottom: 50%;
+				height: 5px;
+			}
+			#bottom-component2 {
+				height: 50%;
+			}
+        </style>
+        <!-- Call in on load JS -->
+    </head>
+    <body>
+        <div class="status-bar">
+            <br>
+            <button id="run-script" class="btn btn-default btn-sm" data-toggle2="tooltip" data-placement="right" title="Run Code Manually"><span class="glyphicon glyphicon-play"></span></button>
+            <br><br>
+            <input id="preview" type="checkbox" checked data-toggle="toggle" data-on="<span class='glyphicon glyphicon-eye-open'></span>" data-off="<span class='glyphicon glyphicon-eye-close'></span>" data-onstyle="success" data-offstyle="danger" data-size="mini">    
+            <br><br>
+            <input id="live-toggle" type="checkbox" checked data-toggle="toggle" data-on="<span class='glyphicon glyphicon-retweet'></span>" data-off="<span class='glyphicon glyphicon-retweet'></span>" data-onstyle="info" data-offstyle="danger" data-size="mini" >    
+            <br><br>
+            <button class="btn btn-warning btn-sm" onclick="TogetherJS(this); return false;" data-toggle2="tooltip" data-placement="right" title="Start Realtime Collaboration"><span class="glyphicon glyphicon-comment"></span></button>
+            <br><br>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModal" data-toggle2="tooltip" data-placement="right" title="Editor Settings"><span class="glyphicon glyphicon-cog"></span></button>
+        </div>
+        <div class="pretty-split-pane-frame"><!-- This div is added for styling purposes only. It's not part of the split-pane plugin. -->
+			<div class="split-pane fixed-bottom" id="split-pane-1">
+				<div class="split-pane-component" id="top-component">
+					<div class="pretty-split-pane-component-inner"><!-- This div is added for styling purposes only. It's not part of the split-pane plugin. -->
+					    <iframe class="thepreview" class="iframe-norm" id="thepreview" sandbox="allow-forms allow-popups allow-scripts allow-same-origin allow-modals" frameborder="0"></iframe>
+					    <div class="frame-label clear-white-bg text-center">Preview</div>
+					</div>
+				</div>
+				<div class="split-pane-divider" id="horizontal-divider"></div>
+				<div class="split-pane-component" id="bottom-component">
+					<div class="split-pane fixed-left" id="split-pane-2">
+						<div class="split-pane-component" id="left-component">
+							<div class="pretty-split-pane-component-inner"><!-- This div is added for styling purposes only. It's not part of the split-pane plugin. -->
+							    <pre class="theeditor" id="editor"></pre>
+							    <div class="frame-label-html clear-white-bg text-center">HTML</div>
+							</div>
+						</div>
+						<div class="split-pane-divider" id="vertical-divider"></div>
+						<div class="split-pane-component" id="right-component">
+							<div class="split-pane horizontal-percent">
+								<div class="split-pane-component" id="top-component2">
+									<div class="pretty-split-pane-component-inner"><!-- This div is added for styling purposes only. It's not part of the split-pane plugin. -->
+									<pre id="editor2"></pre>
+									<div class="frame-label clear-white-bg text-center">CSS</div>
+									</div>
+								</div>
+								<div class="split-pane-divider" id="horizontal-divider2"></div>
+								<div class="split-pane-component" id="bottom-component2">
+									<div class="pretty-split-pane-component-inner"><!-- This div is added for styling purposes only. It's not part of the split-pane plugin. -->
+									<pre id="editor3"></pre>
+									<div class="frame-label clear-white-bg text-center">JS</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+        
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Editor Settings</h4>
+              </div>
+              <div class="modal-body">
+                HEAD Element
+                <pre id="editor4"></pre>
+                Pre-FOOTER Element
+                <pre id="editor5"></pre>
+                Post-JS Element
+                <pre id="editor6"></pre>
+                Theme Setting: <input id="toggle-theme" type="checkbox" checked data-toggle="toggle" data-on="Dark" data-off="Light" data-onstyle="primary" data-offstyle="default" data-size="small">    
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Bring in jQuery -->
+        <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+        <!-- Bring in Bootstrap.js -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+        <!-- Bring in ACE Editor -->
+        <script src="/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+        <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.0/js/bootstrap-toggle.min.js"></script>
+        <!-- Setup TogetherJS -->
+        <script>
+            var TogetherJSConfig_toolName = "UC Collaboration";    
+        </script>
+        <script src="https://togetherjs.com/togetherjs-min.js"></script>
+        <!-- Setup Split Pane -->
+        <script src="/split-pane/split-pane.js"></script>
+        <script>
+			$(function() {
+				$('div.split-pane').splitPane();
+			});
+		</script>
+		<!-- Setup Notification JS -->
+		<script src="/notify/notify-min.js"></script>
+        <!-- Custom Application Logic -->
+        <script>
+        
+            $('[data-toggle2="tooltip"]').tooltip()
+            $('[data-toggle="popover"]').popover()
+            
+            // Set HTML Editor
+            var editor = ace.edit("editor");
+            editor.setTheme("ace/theme/monokai");
+            editor.session.setMode("ace/mode/html");
+            
+            // Set HEAD Editor
+            var editor4 = ace.edit("editor4");
+            editor4.setTheme("ace/theme/monokai");
+            editor4.session.setMode("ace/mode/html");
+            
+            // Set Pre-FOOTER Editor
+            var editor5 = ace.edit("editor5");
+            editor5.setTheme("ace/theme/monokai");
+            editor5.session.setMode("ace/mode/html");
+            
+            // Set Post-JS Editor
+            var editor6 = ace.edit("editor6");
+            editor6.setTheme("ace/theme/monokai");
+            editor6.session.setMode("ace/mode/html");
+            
+            // Set CSS Editor
+            var editor2 = ace.edit("editor2");
+            editor2.setTheme("ace/theme/monokai");
+            editor2.session.setMode("ace/mode/css");
+            
+            // Set JS Editor
+            var editor3 = ace.edit("editor3");
+            editor3.setTheme("ace/theme/monokai");
+            editor3.session.setMode("ace/mode/javascript");
+            
+            // Setup Starting HTML
+            editor.setValue('<div class="container">\n\t<div class="row">\n\t\t<div class="col-md-6 col-md-offset-3">\n\t\t\t<h1 class="text-center">Welcome To The UC Editor</h1>\n\t\t\t<hr>\n\t\t</div>\n\t</div>\n\t<div class="row">\n\t\t<div class="col-md-6">\n\t\t\t<p>This is a realtime editor built for Unrestricted Coding. It allows you to work with HTML/CSS/JavaScript with a realtime preview and an option to do a realtime collaboration section.</p>\n\t\t\t<p>This currently has Bootstrap loaded into it by default, but you may change the settings and included JavaScript references using the settings button the the left. </p>\n\t\t\t<p>You can also disable the live preview window or syncing by using the green and blue toggles on the left.</p>\n\t\t\t<p>To share your session with someone and have them join in then click the yello collaboration button on the left.</p>\n\t\t</div>\n\t\t<div class="col-md-6">\n\t\t\t<p>Currently there are quite a few bugs still on this editor, but they will get fixed. This editor\'s version is <strong>Pre-Release ALPHA v0.0.1</strong></p>\n\t\t\t<p>For a full list of issues please visit the github repositor at <a href="#" target="_blank">Github</a></p>\n\t\t\t<p>This editor is licensed as GPL v2 Open Source. </p>\n\t\t\t<p>To learn more about Unrestricted Coding please visit our site.</p>\n\t\t\t<a href="http://unrestrictedcoding.com/" target="_blank" class="btn btn-lg btn-primary">Visit Unrestricted Coding Site... ></a>\n\t\t</div>\n\t</div>\n</div>\n', -1);
+            editor2.setValue('.some-class { background-color:#000; }', -1);
+            editor3.setValue('var somevar = "Just type your javascript here, no need to wrap it in a function or anything";', -1);
+            editor4.setValue('<!DOCTYPE html>\n<html>\n\t<head>\n\t\t<title>A random project...</title>\n\t\t<meta charset="utf-8">\n\t\t<meta http-equiv="X-UA-Compatible" content="IE=edge">\n\t\t<meta name="viewport" content="width=device-width, initial-scale=1">\n\t\t<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">\n\t</head>\n\t<body>', -1);
+            editor5.setValue('<!-- Put your Jquery or other includes in here -->', -1)
+            editor6.setValue('\t</body>\n</html>', -1);
+            
+            
+            var live = true;
+            // or use data: url to handle things like doctype
+            function showHTMLInIFrame() {
+                var thescript = editor3.getValue();
+                var thecss = editor2.getValue();
+                var thehtml = editor.getValue();
+                var thehead = editor4.getValue();
+                var theprefooter = editor5.getValue();
+                var thepostfooter = editor6.getValue();
+                var thisdocument = thehead + '\<style\>' + thecss + '\</style\>' + thehtml + theprefooter + '\<script\>' + thescript + '\<\/script\>' + thepostfooter;
+                $('#thepreview').attr('src', 'data:text/html,' +encodeURIComponent(thisdocument));
+            }
+            
+            showHTMLInIFrame();
+            
+            editor.on("input", function(){
+                editor.resize();
+                if(live)
+                {
+                    showHTMLInIFrame();
+                }
+            })
+            
+            editor2.on("input", function(){
+                editor2.resize();
+                if(live)
+                {
+                    showHTMLInIFrame();
+                }
+            })
+            
+            editor3.on("input", function(){
+                editor3.resize();
+                if(live)
+                {
+                    showHTMLInIFrame();
+                }
+            })
+            
+            editor4.on("input", function(){
+                if(live)
+                {
+                    showHTMLInIFrame();
+                }
+            })
+            
+            editor5.on("input", function(){
+                if(live)
+                {
+                    showHTMLInIFrame();
+                }
+            })
+            
+            editor6.on("input", function(){
+                if(live)
+                {
+                    showHTMLInIFrame();
+                }
+            })
+            
+            $('#run-script').click(function(){
+                showHTMLInIFrame();
+                $.notify("Preview Manually Ran", "success");
+            });
+            
+            $('#live-toggle').change(function(){
+                if($('#live-toggle').prop('checked') === true)
+                {
+                    live = true;
+                    $.notify("Live Preview Enabled", "warning");
+                } else {
+                    live = false;
+                    $.notify("Live Preview Disabled", "warning");
+                }
+            })
+            
+            $('#toggle-theme').change(function(){
+                if($('#toggle-theme').prop('checked') === true)
+                {
+                    // Dark
+                    editor.setTheme("ace/theme/monokai");
+                    editor2.setTheme("ace/theme/monokai");
+                    editor3.setTheme("ace/theme/monokai");
+                    editor4.setTheme("ace/theme/monokai");
+                    editor5.setTheme("ace/theme/monokai");
+                    editor6.setTheme("ace/theme/monokai");
+                } else {
+                    // Light
+                    editor.setTheme("ace/theme/github");
+                    editor2.setTheme("ace/theme/github");
+                    editor3.setTheme("ace/theme/github");
+                    editor4.setTheme("ace/theme/github");
+                    editor5.setTheme("ace/theme/github");
+                    editor6.setTheme("ace/theme/github");
+                }
+            })
+            
+            $('#preview').change(function(){
+                if($('#preview').prop('checked') === true)
+                {
+                    $('#top-component').css("bottom", '25em');
+                    $('#horizontal-divider').css("bottom", '25em');
+                    $('#bottom-component').css("height", '25em');
+                    $('#thepreview').fadeIn(500, function(){
+                        $.notify("Live Preview Shown.", "info");
+                        $('#thepreview').removeClass('hidden-iframe');
+                        $('#thepreview').addClass('iframe-norm'); 
+                    })
+                    
+                } else {
+                    $('#thepreview').fadeOut(500, function(){
+                        $.notify("Live Preview Hidden.", "info");
+                        $('#top-component').css("bottom", '100%');
+                        $('#horizontal-divider').css("bottom", '100%');
+                        $('#bottom-component').css("height", '100%');
+                        $('#thepreview').removeClass('iframe-norm');
+                        $('#thepreview').addClass('hidden-iframe');
+                    })
+                }
+            })
+        </script>
+    </body>
+</html>
