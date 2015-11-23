@@ -7,154 +7,19 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        
         <!-- Bring in bootstrap... -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+        
+        <!-- Toggle Button CSS -->
         <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.0/css/bootstrap-toggle.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="/split-pane/split-pane.css">
-        <link rel="stylesheet" href="/split-pane/pretty-split-pane.css">
+        
+        <!-- Setup Split Pane CSS -->
+        <link rel="stylesheet" href="/css/split-pane.css">
+        <link rel="stylesheet" href="/css/pretty-split-pane.css">
+        
         <!-- Custom CSS -->
-        <style>
-            body, html {
-                margin:0;
-                padding:0;
-            }
-            .clear-white-bg{
-                /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#adadad+0,adadad+100&amp;0.5+0,0.5+100 */
-                background: -moz-radial-gradient(center, ellipse cover,  rgba(173,173,173,0.5) 0%, rgba(173,173,173,0.5) 100%); /* FF3.6-15 */
-                background: -webkit-radial-gradient(center, ellipse cover,  rgba(173,173,173,0.5) 0%,rgba(173,173,173,0.5) 100%); /* Chrome10-25,Safari5.1-6 */
-                background: radial-gradient(ellipse at center,  rgba(173,173,173,0.5) 0%,rgba(173,173,173,0.5) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-                filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#80adadad', endColorstr='#80adadad',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
-
-            }
-            .frame-label {
-                position:absolute;
-                top:0;
-                right:0;
-                margin-right:5px;
-                margin-top:5px;
-                width:60px;
-                height:20px;
-                z-index:99999;
-                padding-left:3px;
-                border-radius:5px;
-            }
-            .frame-label-html {
-                position:absolute;
-                top:0;
-                right:0;
-                margin-right:5px;
-                margin-top:5px;
-                width:60px;
-                height:20px;
-                z-index:99999;
-                padding-left:3px;
-                border-radius:5px;
-            }
-            .status-bar {
-                position:absolute;
-                left:0;
-                top:0;
-                bottom:0;
-                width:50px;
-                padding:8px;
-                background-color:#555;
-            }
-            iframe, .iframe-norm, #thepreview, #thepreview iframe {
-                border:0;
-                border-radius:0;
-                width:100%;
-                height:100%;
-                min-width:100%;
-                display:block;
-                
-            }
-            #editor {
-                margin:0;
-                padding:0;
-                height:100%;
-                width:100%;
-                border:0;
-                border-radius:0;
-            }
-            #editor2 {
-                margin:0;
-                padding:0;
-                height:100%;
-                width:100%;
-                border:0;
-                border-radius:0;
-            }
-            #editor3 {
-                margin:0;
-                padding:0;
-                height:100%;
-                width:100%;
-                border:0;
-                border-radius:0;
-            }
-            #editor4, #editor5 {
-                height:70px;
-            }
-            .theeditor-full {
-                margin:0;
-                width:100%;
-                height:100%;
-                float:left;
-                border:0;
-                border-radius:0;
-            }
-            .navbar {
-                border-radius:0;
-                margin:0;
-            }
-            .hidden-iframe {
-                display:none;
-            }
-            .pretty-split-pane-frame {
-                position:absolute;
-                left:50px;
-                right:0px;
-                top:0px;
-                bottom:0px;
-            }
-            .pretty-split-pane-component-inner {
-                padding:0;
-            }
-            #top-component {
-				bottom: 25em;
-				margin-bottom: 5px;
-			}
-			#horizontal-divider {
-				bottom: 25em;
-				height: 5px;
-			}
-			#bottom-component {
-				height: 25em;
-			}
-			#left-component {
-				width: 45em;
-			}
-			#vertical-divider {
-				left: 45em;
-				width: 5px;
-			}
-			#right-component {
-				left: 45em;
-				margin-left: 5px;
-			}
-			
-			#top-component2 {
-				bottom: 50%;
-				margin-bottom: 5px;
-			}
-			#horizontal-divider2 {
-				bottom: 50%;
-				height: 5px;
-			}
-			#bottom-component2 {
-				height: 50%;
-			}
-        </style>
+        <link rel="stylesheet" href="/css/custom.css"
     </head>
     <body>
         <div class="status-bar">
@@ -167,7 +32,7 @@
             <br><br>
             <button class="btn btn-warning btn-sm" onclick="TogetherJS(this); return false;" data-toggle2="tooltip" data-placement="right" title="Start Realtime Collaboration"><span class="glyphicon glyphicon-comment"></span></button>
             <br><br>
-            <!-- Button trigger modal -->
+            <!-- Trigger Settings Modal -->
             <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModal" data-toggle2="tooltip" data-placement="right" title="Editor Settings"><span class="glyphicon glyphicon-cog"></span></button>
         </div>
         <div class="pretty-split-pane-frame"><!-- This div is added for styling purposes only. It's not part of the split-pane plugin. -->
@@ -175,7 +40,7 @@
 				<div class="split-pane-component" id="top-component">
 					<div class="pretty-split-pane-component-inner"><!-- This div is added for styling purposes only. It's not part of the split-pane plugin. -->
 					    <iframe id="thepreview" sandbox="allow-forms allow-popups allow-scripts allow-same-origin" frameborder="0"></iframe>
-					    <!--<div class="frame-label clear-white-bg text-center">Preview</div>-->
+					    <div class="frame-label clear-white-bg text-center">Preview</div>
 					</div>
 				</div>
 				<div class="split-pane-divider" id="horizontal-divider"></div>
@@ -210,7 +75,7 @@
 			</div>
 		</div>
         
-        <!-- Modal -->
+        <!-- Settings Modal -->
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -235,202 +100,29 @@
         
         <!-- Bring in jQuery -->
         <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+        
         <!-- Bring in Bootstrap.js -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
-        <!-- Bring in ACE Editor -->
-        <script src="/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+        
+        <!-- Bring in Toggle Buttons -->
         <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.0/js/bootstrap-toggle.min.js"></script>
+        
+        <!-- Bring in ACE Editor -->
+        <script src="/js/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+        
         <!-- Setup TogetherJS -->
         <script>
             var TogetherJSConfig_toolName = "UC Collaboration";    
         </script>
         <script src="https://togetherjs.com/togetherjs-min.js"></script>
-        <!-- Setup Split Pane -->
-        <script src="/split-pane/split-pane.js"></script>
-        <script>
-			$(function() {
-				$('div.split-pane').splitPane();
-			});
-		</script>
-		<!-- Setup Notification JS -->
-		<script src="/notify/notify-min.js"></script>
-        <!-- Custom Application Logic -->
-        <script>
         
-            $('[data-toggle2="tooltip"]').tooltip()
-            $('[data-toggle="popover"]').popover()
-            
-            // Set HTML Editor
-            var editor = ace.edit("editor");
-            editor.setTheme("ace/theme/monokai");
-            editor.session.setMode("ace/mode/html");
-            
-            // Set HEAD Editor
-            var editor4 = ace.edit("editor4");
-            editor4.setTheme("ace/theme/monokai");
-            editor4.session.setMode("ace/mode/html");
-            
-            // Set Pre-FOOTER Editor
-            var editor5 = ace.edit("editor5");
-            editor5.setTheme("ace/theme/monokai");
-            editor5.session.setMode("ace/mode/html");
-            
-            // Set CSS Editor
-            var editor2 = ace.edit("editor2");
-            editor2.setTheme("ace/theme/monokai");
-            editor2.session.setMode("ace/mode/css");
-            
-            // Set JS Editor
-            var editor3 = ace.edit("editor3");
-            editor3.setTheme("ace/theme/monokai");
-            editor3.session.setMode("ace/mode/javascript");
-            
-            // Setup Starting HTML
-            editor.setValue('<h1>Welcome To The UC Editor</h1>\n<hr>\n<p>This is a realtime editor built for Unrestricted Coding. It allows you to work with HTML/CSS/JavaScript with a realtime preview and an option to do a realtime collaboration section.</p>\n<p>You can disable the live preview window or syncing by using the green and blue toggles on the left.</p>\n<p>To share your session with someone and have them join in then click the yello collaboration button on the left.</p>\n\n<p>Currently there are quite a few bugs still on this editor, but they will get fixed. This editor\'s version is <strong>Pre-Release ALPHA v0.0.1</strong></p>\n<p>For a full list of issues please visit the github repositor at <a href="https://github.com/Unrestricted-Coding/realtime-editor" target="_blank">Github</a></p>\n<p>This editor is licensed as GPL v2 Open Source. </p>\n<p>To learn more about Unrestricted Coding please visit our site.</p>\n<a href="http://unrestrictedcoding.com/" target="_blank">Visit Unrestricted Coding Site... ></a>\n<br><br><br>', -1);
-            editor2.setValue('.some-class { background-color:#000; }', -1);
-            editor3.setValue('var somevar = "Just type your javascript here, no need to wrap it in a function or anything";', -1);
-            editor4.setValue('<!-- Put your Header Information here-->')
-            editor5.setValue('<!-- Put your Jquery or other includes in here -->', -1)
-            
-            // Setup iFrame
-            var iframe = document.getElementById('thepreview'),
-            iframedoc = iframe.contentDocument || iframe.contentWindow.document;
-            iframedoc.body.setAttribute('tabindex', 0);
-            
-            var live = true;
-            // or use data: url to handle things like doctype
-            function showHTMLInIFrame() {
-                var thescript = editor3.getValue();
-                var thecss = editor2.getValue();
-                var thehtml = editor.getValue();
-                var thehead = editor4.getValue();
-                var theprefooter = editor5.getValue();
-                var thisdocument = thehtml + theprefooter + '\<script\>' + thescript + '\<\/script\>';
-                iframedoc.body.innerHTML = thisdocument;
-                iframedoc.head.innerHTML = thehead + '\<style\>' + thecss + '\<\/style\>';
-                //$('#thepreview').attr('src', 'data:text/html,' +encodeURIComponent(thisdocument));
-            }
-            
-            showHTMLInIFrame();
-            
-            editor.on("input", function(){
-                editor.resize();
-                if(live)
-                {
-                    showHTMLInIFrame();
-                }
-            })
-            
-            editor2.on("input", function(){
-                editor2.resize();
-                if(live)
-                {
-                    showHTMLInIFrame();
-                }
-            })
-            
-            editor3.on("input", function(){
-                editor3.resize();
-                if(live)
-                {
-                    showHTMLInIFrame();
-                }
-            })
-            
-            editor4.on("input", function(){
-                if(live)
-                {
-                    showHTMLInIFrame();
-                }
-            })
-            
-            editor5.on("input", function(){
-                if(live)
-                {
-                    showHTMLInIFrame();
-                }
-            })
-            
-            
-            $('#run-script').click(function(){
-                showHTMLInIFrame();
-                $.notify("Preview Manually Ran", "success");
-            });
-            
-            $('#live-toggle').change(function(){
-                if($('#live-toggle').prop('checked') === true)
-                {
-                    live = true;
-                    $.notify("Live Preview Enabled", "warning");
-                } else {
-                    live = false;
-                    $.notify("Live Preview Disabled", "warning");
-                }
-            })
-            
-            $('#toggle-wrap').change(function(){
-                if($('#toggle-wrap').prop('checked') === true)
-                {
-                    editor.getSession().setUseWrapMode(false);
-                    editor2.getSession().setUseWrapMode(false);
-                    editor3.getSession().setUseWrapMode(false);
-                    editor4.getSession().setUseWrapMode(false);
-                    editor5.getSession().setUseWrapMode(false);
-                    $.notify("Wrap Disabled (Default)", "info");
-                } else {
-                    editor.getSession().setUseWrapMode(true);
-                    editor2.getSession().setUseWrapMode(true);
-                    editor3.getSession().setUseWrapMode(true);
-                    editor4.getSession().setUseWrapMode(true);
-                    editor5.getSession().setUseWrapMode(true);
-                    $.notify("Wrap Enabled", "info");
-                }
-            })
-            
-            $('#toggle-theme').change(function(){
-                if($('#toggle-theme').prop('checked') === true)
-                {
-                    // Dark
-                    editor.setTheme("ace/theme/monokai");
-                    editor2.setTheme("ace/theme/monokai");
-                    editor3.setTheme("ace/theme/monokai");
-                    editor4.setTheme("ace/theme/monokai");
-                    editor5.setTheme("ace/theme/monokai");
-                    $.notify("Theme Set To Dark", "info");
-                } else {
-                    // Light
-                    editor.setTheme("ace/theme/github");
-                    editor2.setTheme("ace/theme/github");
-                    editor3.setTheme("ace/theme/github");
-                    editor4.setTheme("ace/theme/github");
-                    editor5.setTheme("ace/theme/github");
-                    $.notify("Theme Set To Light", "info");
-                }
-            })
-            
-            $('#preview').change(function(){
-                if($('#preview').prop('checked') === true)
-                {
-                    $('#top-component').css("bottom", '25em');
-                    $('#horizontal-divider').css("bottom", '25em');
-                    $('#bottom-component').css("height", '25em');
-                    $('#thepreview').fadeIn(500, function(){
-                        $.notify("Live Preview Shown.", "info");
-                        $('#thepreview').removeClass('hidden-iframe');
-                        $('#thepreview').addClass('iframe-norm'); 
-                    })
-                    
-                } else {
-                    $('#thepreview').fadeOut(500, function(){
-                        $.notify("Live Preview Hidden.", "info");
-                        $('#top-component').css("bottom", '100%');
-                        $('#horizontal-divider').css("bottom", '100%');
-                        $('#bottom-component').css("height", '100%');
-                        $('#thepreview').removeClass('iframe-norm');
-                        $('#thepreview').addClass('hidden-iframe');
-                    })
-                }
-            })
-        </script>
+        <!-- Setup Split Pane -->
+        <script src="/js/split-pane/split-pane.js"></script>
+        
+		<!-- Setup Notification JS -->
+		<script src="/js/notify/notify-min.js"></script>
+		
+        <!-- Custom Application Logic -->
+        <script src="/js/app.js"></script>
     </body>
 </html>
