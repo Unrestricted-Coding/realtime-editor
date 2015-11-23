@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Some realtime editor with preview...</title>
+        <title>UC Realtime Editor - Unrestricted Coding</title>
         
         <!-- set edge and viewport -->
         <meta charset="utf-8">
@@ -66,6 +66,7 @@
                 height:100%;
                 min-width:100%;
                 display:block;
+                
             }
             #editor {
                 margin:0;
@@ -91,7 +92,7 @@
                 border:0;
                 border-radius:0;
             }
-            #editor4, #editor5, #editor6 {
+            #editor4, #editor5 {
                 height:70px;
             }
             .theeditor-full {
@@ -154,7 +155,6 @@
 				height: 50%;
 			}
         </style>
-        <!-- Call in on load JS -->
     </head>
     <body>
         <div class="status-bar">
@@ -174,8 +174,8 @@
 			<div class="split-pane fixed-bottom" id="split-pane-1">
 				<div class="split-pane-component" id="top-component">
 					<div class="pretty-split-pane-component-inner"><!-- This div is added for styling purposes only. It's not part of the split-pane plugin. -->
-					    <iframe class="thepreview" class="iframe-norm" id="thepreview" sandbox="allow-forms allow-popups allow-scripts allow-same-origin allow-modals" frameborder="0"></iframe>
-					    <div class="frame-label clear-white-bg text-center">Preview</div>
+					    <iframe id="thepreview" sandbox="allow-forms allow-popups allow-scripts allow-same-origin" frameborder="0"></iframe>
+					    <!--<div class="frame-label clear-white-bg text-center">Preview</div>-->
 					</div>
 				</div>
 				<div class="split-pane-divider" id="horizontal-divider"></div>
@@ -221,11 +221,10 @@
               <div class="modal-body">
                 HEAD Element
                 <pre id="editor4"></pre>
-                Pre-FOOTER Element
+                PRE JavaScript Footer (Load jquery here)
                 <pre id="editor5"></pre>
-                Post-JS Element
-                <pre id="editor6"></pre>
                 Theme Setting: <input id="toggle-theme" type="checkbox" checked data-toggle="toggle" data-on="Dark" data-off="Light" data-onstyle="primary" data-offstyle="default" data-size="small">    
+                Wrap?: <input id="toggle-wrap" type="checkbox" checked data-toggle="toggle" data-on="None" data-off="Wrap" data-onstyle="primary" data-offstyle="default" data-size="small">    
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -276,11 +275,6 @@
             editor5.setTheme("ace/theme/monokai");
             editor5.session.setMode("ace/mode/html");
             
-            // Set Post-JS Editor
-            var editor6 = ace.edit("editor6");
-            editor6.setTheme("ace/theme/monokai");
-            editor6.session.setMode("ace/mode/html");
-            
             // Set CSS Editor
             var editor2 = ace.edit("editor2");
             editor2.setTheme("ace/theme/monokai");
@@ -292,13 +286,16 @@
             editor3.session.setMode("ace/mode/javascript");
             
             // Setup Starting HTML
-            editor.setValue('<div class="container">\n\t<div class="row">\n\t\t<div class="col-md-6 col-md-offset-3">\n\t\t\t<h1 class="text-center">Welcome To The UC Editor</h1>\n\t\t\t<hr>\n\t\t</div>\n\t</div>\n\t<div class="row">\n\t\t<div class="col-md-6">\n\t\t\t<p>This is a realtime editor built for Unrestricted Coding. It allows you to work with HTML/CSS/JavaScript with a realtime preview and an option to do a realtime collaboration section.</p>\n\t\t\t<p>This currently has Bootstrap loaded into it by default, but you may change the settings and included JavaScript references using the settings button the the left. </p>\n\t\t\t<p>You can also disable the live preview window or syncing by using the green and blue toggles on the left.</p>\n\t\t\t<p>To share your session with someone and have them join in then click the yello collaboration button on the left.</p>\n\t\t</div>\n\t\t<div class="col-md-6">\n\t\t\t<p>Currently there are quite a few bugs still on this editor, but they will get fixed. This editor\'s version is <strong>Pre-Release ALPHA v0.0.1</strong></p>\n\t\t\t<p>For a full list of issues please visit the github repositor at <a href="#" target="_blank">Github</a></p>\n\t\t\t<p>This editor is licensed as GPL v2 Open Source. </p>\n\t\t\t<p>To learn more about Unrestricted Coding please visit our site.</p>\n\t\t\t<a href="http://unrestrictedcoding.com/" target="_blank" class="btn btn-lg btn-primary">Visit Unrestricted Coding Site... ></a>\n\t\t</div>\n\t</div>\n</div>\n', -1);
+            editor.setValue('<h1>Welcome To The UC Editor</h1>\n<hr>\n<p>This is a realtime editor built for Unrestricted Coding. It allows you to work with HTML/CSS/JavaScript with a realtime preview and an option to do a realtime collaboration section.</p>\n<p>You can disable the live preview window or syncing by using the green and blue toggles on the left.</p>\n<p>To share your session with someone and have them join in then click the yello collaboration button on the left.</p>\n\n<p>Currently there are quite a few bugs still on this editor, but they will get fixed. This editor\'s version is <strong>Pre-Release ALPHA v0.0.1</strong></p>\n<p>For a full list of issues please visit the github repositor at <a href="https://github.com/Unrestricted-Coding/realtime-editor" target="_blank">Github</a></p>\n<p>This editor is licensed as GPL v2 Open Source. </p>\n<p>To learn more about Unrestricted Coding please visit our site.</p>\n<a href="http://unrestrictedcoding.com/" target="_blank">Visit Unrestricted Coding Site... ></a>\n<br><br><br>', -1);
             editor2.setValue('.some-class { background-color:#000; }', -1);
             editor3.setValue('var somevar = "Just type your javascript here, no need to wrap it in a function or anything";', -1);
-            editor4.setValue('<!DOCTYPE html>\n<html>\n\t<head>\n\t\t<title>A random project...</title>\n\t\t<meta charset="utf-8">\n\t\t<meta http-equiv="X-UA-Compatible" content="IE=edge">\n\t\t<meta name="viewport" content="width=device-width, initial-scale=1">\n\t\t<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">\n\t</head>\n\t<body>', -1);
+            editor4.setValue('<!-- Put your Header Information here-->')
             editor5.setValue('<!-- Put your Jquery or other includes in here -->', -1)
-            editor6.setValue('\t</body>\n</html>', -1);
             
+            // Setup iFrame
+            var iframe = document.getElementById('thepreview'),
+            iframedoc = iframe.contentDocument || iframe.contentWindow.document;
+            iframedoc.body.setAttribute('tabindex', 0);
             
             var live = true;
             // or use data: url to handle things like doctype
@@ -308,9 +305,10 @@
                 var thehtml = editor.getValue();
                 var thehead = editor4.getValue();
                 var theprefooter = editor5.getValue();
-                var thepostfooter = editor6.getValue();
-                var thisdocument = thehead + '\<style\>' + thecss + '\</style\>' + thehtml + theprefooter + '\<script\>' + thescript + '\<\/script\>' + thepostfooter;
-                $('#thepreview').attr('src', 'data:text/html,' +encodeURIComponent(thisdocument));
+                var thisdocument = thehtml + theprefooter + '\<script\>' + thescript + '\<\/script\>';
+                iframedoc.body.innerHTML = thisdocument;
+                iframedoc.head.innerHTML = thehead + '\<style\>' + thecss + '\<\/style\>';
+                //$('#thepreview').attr('src', 'data:text/html,' +encodeURIComponent(thisdocument));
             }
             
             showHTMLInIFrame();
@@ -353,12 +351,6 @@
                 }
             })
             
-            editor6.on("input", function(){
-                if(live)
-                {
-                    showHTMLInIFrame();
-                }
-            })
             
             $('#run-script').click(function(){
                 showHTMLInIFrame();
@@ -376,6 +368,25 @@
                 }
             })
             
+            $('#toggle-wrap').change(function(){
+                if($('#toggle-wrap').prop('checked') === true)
+                {
+                    editor.getSession().setUseWrapMode(false);
+                    editor2.getSession().setUseWrapMode(false);
+                    editor3.getSession().setUseWrapMode(false);
+                    editor4.getSession().setUseWrapMode(false);
+                    editor5.getSession().setUseWrapMode(false);
+                    $.notify("Wrap Disabled (Default)", "info");
+                } else {
+                    editor.getSession().setUseWrapMode(true);
+                    editor2.getSession().setUseWrapMode(true);
+                    editor3.getSession().setUseWrapMode(true);
+                    editor4.getSession().setUseWrapMode(true);
+                    editor5.getSession().setUseWrapMode(true);
+                    $.notify("Wrap Enabled", "info");
+                }
+            })
+            
             $('#toggle-theme').change(function(){
                 if($('#toggle-theme').prop('checked') === true)
                 {
@@ -385,7 +396,7 @@
                     editor3.setTheme("ace/theme/monokai");
                     editor4.setTheme("ace/theme/monokai");
                     editor5.setTheme("ace/theme/monokai");
-                    editor6.setTheme("ace/theme/monokai");
+                    $.notify("Theme Set To Dark", "info");
                 } else {
                     // Light
                     editor.setTheme("ace/theme/github");
@@ -393,7 +404,7 @@
                     editor3.setTheme("ace/theme/github");
                     editor4.setTheme("ace/theme/github");
                     editor5.setTheme("ace/theme/github");
-                    editor6.setTheme("ace/theme/github");
+                    $.notify("Theme Set To Light", "info");
                 }
             })
             
