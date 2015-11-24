@@ -71,21 +71,29 @@ editor5.setShowPrintMargin(false);
 /////////////////////////// Preview Config /////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 // Setup iFrame
-var iframe = document.getElementById('thepreview'),
-iframedoc = iframe.contentDocument || iframe.contentWindow.document;
-iframedoc.body.setAttribute('tabindex', 0);
+
+
+
 
 var live = true;
 // or use data: url to handle things like doctype
 function showHTMLInIFrame() {
+    var iframe = document.getElementById('thepreview'),
+    iframedoc = iframe.contentDocument || iframe.contentWindow.document;
+    
     var thescript = editor3.getValue();
     var thecss = editor2.getValue();
     var thehtml = editor.getValue();
     var thehead = editor4.getValue();
     var theprefooter = editor5.getValue();
     var thisdocument = thehtml + theprefooter + '\<script\>' + thescript + '\<\/script\>';
+    
     iframedoc.body.innerHTML = thisdocument;
     iframedoc.head.innerHTML = thehead + '\<style\>' + thecss + '\<\/style\>';
+    $("#thepreview").contents().find("a").click(function(e) {
+        e.preventDefault()
+    });
+    
     //$('#thepreview').attr('src', 'data:text/html,' +encodeURIComponent(thisdocument));
 }
 
