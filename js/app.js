@@ -59,11 +59,141 @@ editor3.setShowPrintMargin(false);
 editor4.setShowPrintMargin(false);
 editor5.setShowPrintMargin(false);
 
-// Git rid of annoying moving coursor to typed text...
+////////////////////////////////////////////////////////////////////////////////
+/////////////////////////// Zen Mode Config ////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+var fullflag = false;
+function makeFullScreen() {
+    require(["ace/lib/dom"], function(dom) {
+        if(fullflag)
+        {
+            $('#editor-pane').removeClass('pretty-override');
+            $('#javascript-pane').removeClass('pretty-override');
+            $('#css-pane').removeClass('pretty-override');
+            $('#left-component').removeClass('pretty-override');
+            $('#right-component').removeClass('pretty-override');
+            $('#split-pane-2').removeClass('pretty-override');
+            $('#bottom-component').removeClass('pretty-override');
+            $('#bottom-component2').removeClass('pretty-override');
+            $('#top-component2').removeClass('pretty-override');
+            $('#horizontal-divider').removeClass('pretty-override');
+            $('#css-pane').fadeIn();
+            editor2.resize();
+            $('#javascript-pane').fadeIn();
+            editor3.resize();
+            fullflag = false;
+        } else {
+            $('#editor-pane').addClass('pretty-override');
+            $('#javascript-pane').addClass('pretty-override');
+            $('#css-pane').addClass('pretty-override');
+            $('#left-component').addClass('pretty-override');
+            $('#right-component').addClass('pretty-override');
+            $('#split-pane-2').addClass('pretty-override');
+            $('#bottom-component').addClass('pretty-override');
+            $('#bottom-component2').removeClass('pretty-override');
+            $('#top-component2').removeClass('pretty-override');
+            $('#horizontal-divider').addClass('pretty-override');
+            $('#css-pane').fadeOut();
+            editor2.resize();
+            $('#javascript-pane').fadeOut();
+            editor3.resize();
+            fullflag = true;
+        }
+        var fullScreen = dom.toggleCssClass(document.body, "fullScreen")
+        dom.setCssClass(editor.container, "fullScreen", fullScreen)
+        editor.setAutoScrollEditorIntoView(!fullScreen)
+        editor.resize();
+    });
+};
+
+function toggleFullscrene() {
+    if (!document.fullscreenElement && !document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {  // current working methods
+        if (document.documentElement.requestFullscreen) {
+          document.documentElement.requestFullscreen();
+        } else if (document.documentElement.msRequestFullscreen) {
+          document.documentElement.msRequestFullscreen();
+        } else if (document.documentElement.mozRequestFullScreen) {
+          document.documentElement.mozRequestFullScreen();
+        } else if (document.documentElement.webkitRequestFullscreen) {
+          document.documentElement.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+        }
+    } else {
+    if (document.exitFullscreen) {
+          document.exitFullscreen();
+        } else if (document.msExitFullscreen) {
+          document.msExitFullscreen();
+        } else if (document.mozCancelFullScreen) {
+          document.mozCancelFullScreen();
+        } else if (document.webkitExitFullscreen) {
+          document.webkitExitFullscreen();
+        }
+    }
+}
+
+// -- FullScreen -- //
+editor.commands.addCommand({
+    name: "Toggle Fullscreen",
+    bindKey: "F10",
+    exec: function(editor) {
+        //makeFullScreen();
+        toggleFullscrene();
+    }
+});
+
+$('#zen-mode').click(function(){
+    //makeFullScreen();
+    toggleFullscrene();
+})
+
+if (document.addEventListener)
+{
+    document.addEventListener('webkitfullscreenchange', exitHandler, false);
+    document.addEventListener('mozfullscreenchange', exitHandler, false);
+    document.addEventListener('fullscreenchange', exitHandler, false);
+    document.addEventListener('MSFullscreenChange', exitHandler, false);
+}
+
+function exitHandler()
+{
+    if (document.webkitIsFullScreen || document.mozFullScreen || document.msFullscreenElement !== null)
+    {
+        /* Run code on exit */
+        makeFullScreen();
+    }
+}
+// Set Zen Mode Music
+
+//"Royalty Free Music from Bensound" http://www.bensound.com/royalty-free-music/track/relaxing
+var audio = new Audio('/audio/bensound-relaxing.mp3');
+var audioflag = false;
+audio.addEventListener('ended', function() {
+    this.currentTime = 0;
+    this.play();
+}, false);
+
+$('#zen-music').click(function(){
+   if(audioflag)
+   {
+       audio.pause();
+       audioflag = false;
+   } else {
+       audio.play();
+       audioflag = true;
+   }
+});
 
 
+////////////////////////////////////////////////////////////////////////////////
+/////////////////////////// Download Config ////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 
 
+document.getElementById('dlink').onclick = function(code) {
+    var iframe = document.getElementById('thepreview');
+    var iframedoc = iframe.contentDocument || iframe.contentWindow.document;
+    this.href = 'data:text/plain;charset=utf-8,'
+    + encodeURIComponent("<!DOCTYPE html>\n<html>\n<head>" + iframedoc.head.innerHTML + "\n</head>\n<body>\n"+ iframedoc.body.innerHTML + "\n</body>\n</html>\n");
+};
 
 
 
@@ -95,6 +225,9 @@ function showHTMLInIFrame() {
     });
     
     //$('#thepreview').attr('src', 'data:text/html,' +encodeURIComponent(thisdocument));
+    
+    // Set Data For Download
+    
 }
 
 showHTMLInIFrame();

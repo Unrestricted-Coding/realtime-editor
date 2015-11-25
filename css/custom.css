@@ -18,7 +18,7 @@ body, html {
     margin-top:5px;
     width:60px;
     height:20px;
-    z-index:99999;
+    z-index:100;
     padding-left:3px;
     border-radius:5px;
 }
@@ -30,7 +30,7 @@ body, html {
     margin-top:5px;
     width:60px;
     height:20px;
-    z-index:99999;
+    z-index:;
     padding-left:3px;
     border-radius:5px;
 }
@@ -58,6 +58,21 @@ iframe, .iframe-norm, #thepreview, #thepreview iframe {
     width:100%;
     border:0;
     border-radius:0;
+}
+.ace_editor.fullScreen {
+    height: auto;
+    width: auto;
+    border: 0;
+    margin: 0;
+    position: fixed !important;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 20000;
+}
+.fullScreen {
+    overflow: hidden
 }
 #editor2 {
     margin:0;
@@ -135,4 +150,15 @@ iframe, .iframe-norm, #thepreview, #thepreview iframe {
 }
 #bottom-component2 {
 	height: 50%;
+}
+.bottom-menu {
+    position:absolute;
+    bottom:0;
+    margin-bottom:15px;
+}
+#zen-mode {
+    position:fixed;
+    bottom:0;
+    z-index:90000;
+    overflow:hidden;
 }
