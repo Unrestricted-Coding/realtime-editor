@@ -155,11 +155,7 @@ if (document.addEventListener)
 
 function exitHandler()
 {
-    if (document.webkitIsFullScreen || document.mozFullScreen || document.msFullscreenElement !== null)
-    {
-        /* Run code on exit */
         makeFullScreen();
-    }
 }
 // Set Zen Mode Music
 
