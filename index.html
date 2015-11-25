@@ -81,6 +81,16 @@
 				</div>
 			</div>
 		</div>
+    <div id="footer">
+      <div id="mode" class="pull-left">
+        <span class="glyphicon glyphicon-flash"></span> Mode: HTML/CSS/JS
+      </div>
+      <div id="section-about" class="pull-right">
+        MADE WITH <span class="glyphicon glyphicon-heart"></span> BY <a class="alt" href="http://unrestrictedcoding.com/">UNRESTRICTEDCODING.COM</a>
+        &nbsp;&nbsp;
+        <button type="button" class="about" data-toggle="modal" data-target="#aboutmodal"><span class="glyphicon glyphicon-question-sign"></span></button>
+      </div>
+    </div>
         
         <!-- Settings Modal -->
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -96,7 +106,40 @@
                 PRE JavaScript Footer (Load jquery here)
                 <pre id="editor5"></pre>
                 Theme Setting: <input id="toggle-theme" type="checkbox" checked data-toggle="toggle" data-on="Dark" data-off="Light" data-onstyle="primary" data-offstyle="default" data-size="small">    
+                &nbsp;&nbsp;
                 Wrap?: <input id="toggle-wrap" type="checkbox" checked data-toggle="toggle" data-on="None" data-off="Wrap" data-onstyle="primary" data-offstyle="default" data-size="small">    
+                &nbsp;&nbsp;
+                Markdown Mode: <input id="toggle-md" type="checkbox" checked data-toggle="toggle" data-on="Off" data-off="On" data-onstyle="danger" data-offstyle="success" data-size="small">    
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- About Modal -->
+        <div class="modal fade" id="aboutmodal" tabindex="-1" role="dialog" aria-labelledby="aboutmodalLabel">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="aboutmodalLabel"><span class="glyphicon glyphicon-info-sign"></span> About UC Realtime Editor</h4>
+              </div>
+              <div class="modal-body">
+                <p>This is a realtime editor built for Unrestricted Coding. It allows you to work with HTML/CSS/JavaScript with a realtime preview and an option to do realtime collaboration.</p>
+                <h5>Credits:</h5>
+                <ul>
+                  <li>Editor: <a href="https://ace.c9.io">ACE Editor by Cloud9</a></li>
+                  <li>Music: <a href="http://www.bensound.com/royalty-free-music/track/relaxing">Royalty Free Music from Bensound.com</a></li>
+                  <li>HTML/CSS Framework: <a href="http://getbootstrap.com">Twitter Bootstrap</a></li>
+                  <li>Markdown Converter: <a href="https://github.com/evilstreak/markdown-js">Markdown-js by Evilstreak</a></li>
+                </ul>
+                <h5>Support:</h5>
+                <p>For support please join us on our Slack channel. <a href="http://uc-slack.herokuapp.com">Click Here To Join!!!</a></p>
+                <h5>More Info:</h5>
+                <p>Visit our main site at <a href="http://unrestrictedcoding.com">http://unrestrictedcoding.com</a></p>
+                <p>This software is licensed as GPL-v2.</p>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
