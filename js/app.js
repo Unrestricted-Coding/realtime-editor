@@ -163,7 +163,7 @@ function exitHandler()
 // Set Zen Mode Music
 
 //"Royalty Free Music from Bensound" http://www.bensound.com/royalty-free-music/track/relaxing
-var audio = new Audio('/audio/bensound-relaxing.mp3');
+var audio = new Audio('/audio/quiet-rain.mp3');
 var audioflag = false;
 audio.addEventListener('ended', function() {
     this.currentTime = 0;
