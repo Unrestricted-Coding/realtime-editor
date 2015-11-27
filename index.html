@@ -42,45 +42,62 @@
               <button id="zen-mode" type="button" class="btn btn-default btn-sm" title="Enable Zen Mode" data-toggle2="tooltip" data-placement="right"><span class="glyphicon glyphicon-fullscreen"></span></button>
             </div>
         </div>
-        <div class="pretty-split-pane-frame"><!-- This div is added for styling purposes only. It's not part of the split-pane plugin. -->
-			<div class="split-pane fixed-bottom" id="split-pane-1">
-				<div class="split-pane-component" id="top-component">
-					<div class="pretty-split-pane-component-inner"><!-- This div is added for styling purposes only. It's not part of the split-pane plugin. -->
-					    <iframe id="thepreview" sandbox="allow-forms allow-popups allow-pointer-lock allow-scripts allow-same-origin" frameborder="0"></iframe>
-					    <div class="frame-label clear-white-bg text-center">Preview</div>
-					</div>
-				</div>
-				<div class="split-pane-divider" id="horizontal-divider"></div>
-				<div class="split-pane-component" id="bottom-component">
-					<div class="split-pane fixed-left" id="split-pane-2">
-						<div class="split-pane-component" id="left-component">
-							<div  id="editor-pane" class="pretty-split-pane-component-inner"><!-- This div is added for styling purposes only. It's not part of the split-pane plugin. -->
-							    <pre class="theeditor" id="editor"></pre>
-							    <div class="frame-label-html clear-white-bg text-center">HTML</div>
-							</div>
-						</div>
-						<div class="split-pane-divider" id="vertical-divider"></div>
-						<div class="split-pane-component" id="right-component">
-							<div class="split-pane horizontal-percent">
-								<div class="split-pane-component" id="top-component2">
-									<div class="pretty-split-pane-component-inner" id="css-pane"><!-- This div is added for styling purposes only. It's not part of the split-pane plugin. -->
-									<pre id="editor2"></pre>
-									<div class="frame-label clear-white-bg text-center">CSS</div>
-									</div>
-								</div>
-								<div class="split-pane-divider" id="horizontal-divider2"></div>
-								<div class="split-pane-component" id="bottom-component2">
-									<div class="pretty-split-pane-component-inner" id="javascript-pane"><!-- This div is added for styling purposes only. It's not part of the split-pane plugin. -->
-									<pre id="editor3"></pre>
-									<div class="frame-label clear-white-bg text-center">JS</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+        <div id="html-pane" class="pretty-split-pane-frame"><!-- This div is added for styling purposes only. It's not part of the split-pane plugin. -->
+    			<div class="split-pane fixed-bottom" id="split-pane-1">
+    				<div class="split-pane-component" id="top-component">
+    					<div class="pretty-split-pane-component-inner"><!-- This div is added for styling purposes only. It's not part of the split-pane plugin. -->
+    					    <iframe id="thepreview" sandbox="allow-forms allow-popups allow-pointer-lock allow-scripts allow-same-origin" frameborder="0"></iframe>
+    					    <div class="frame-label clear-white-bg text-center">Preview</div>
+    					</div>
+    				</div>
+    				<div class="split-pane-divider" id="horizontal-divider"></div>
+    				<div class="split-pane-component" id="bottom-component">
+    					<div class="split-pane fixed-left" id="split-pane-2">
+    						<div class="split-pane-component" id="left-component">
+    							<div  id="editor-pane" class="pretty-split-pane-component-inner"><!-- This div is added for styling purposes only. It's not part of the split-pane plugin. -->
+    							    <pre class="theeditor" id="editor"></pre>
+    							    <div class="frame-label-html clear-white-bg text-center">HTML</div>
+    							</div>
+    						</div>
+    						<div class="split-pane-divider" id="vertical-divider"></div>
+    						<div class="split-pane-component" id="right-component">
+    							<div class="split-pane horizontal-percent">
+    								<div class="split-pane-component" id="top-component2">
+    									<div class="pretty-split-pane-component-inner" id="css-pane"><!-- This div is added for styling purposes only. It's not part of the split-pane plugin. -->
+    									<pre id="editor2"></pre>
+    									<div class="frame-label clear-white-bg text-center">CSS</div>
+    									</div>
+    								</div>
+    								<div class="split-pane-divider" id="horizontal-divider2"></div>
+    								<div class="split-pane-component" id="bottom-component2">
+    									<div class="pretty-split-pane-component-inner" id="javascript-pane"><!-- This div is added for styling purposes only. It's not part of the split-pane plugin. -->
+    									<pre id="editor3"></pre>
+    									<div class="frame-label clear-white-bg text-center">JS</div>
+    									</div>
+    								</div>
+    							</div>
+    						</div>
+    					</div>
+    				</div>
+    			</div>
+    		</div>
+    		<div id="md-pane" class="pretty-split-pane-frame"><!-- This div is added for styling purposes only. It's not part of the split-pane plugin. -->
+    			<div class="split-pane fixed-left" id="split-pane-md">
+    						<div class="split-pane-component" id="left-component-md">
+    							<div  id="editor-pane-md" class="pretty-split-pane-component-inner"><!-- This div is added for styling purposes only. It's not part of the split-pane plugin. -->
+    							    <pre id="editormd"></pre>
+    							    <div class="frame-label-md clear-white-bg text-center">Markdown</div>
+    							</div>    
+    						</div>
+    						<div class="split-pane-divider" id="vertical-divider-md"></div>
+    						<div class="split-pane-component" id="right-component-md">
+    									<div class="pretty-split-pane-component-inner" id="preview-pane-md"><!-- This div is added for styling purposes only. It's not part of the split-pane plugin. -->
+    									  <iframe id="mdpreview" sandbox="allow-forms allow-popups allow-pointer-lock allow-scripts allow-same-origin" frameborder="0"></iframe>
+          					    <div class="frame-label clear-white-bg text-center">Preview</div>
+    									</div>
+    						</div>
+    			</div>
+    		</div>
     <div id="footer">
       <div id="mode" class="pull-left">
         <span class="glyphicon glyphicon-flash"></span> Mode: HTML/CSS/JS
@@ -172,6 +189,9 @@
         
     		<!-- Setup Notification JS -->
     		<script src="/js/notify/notify-min.js"></script>
+    		
+    		<!-- Setup Markdown Converter -->
+    		<script src="/js/md2html/markdown.min.js"></script>
 		
 		    <!-- Bring in RequireJS -->
 		    <script type="text/javascript">
