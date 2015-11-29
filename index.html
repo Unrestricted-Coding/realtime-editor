@@ -98,6 +98,22 @@
     						</div>
     			</div>
     		</div>
+    		<div id="py-pane" class="pretty-split-pane-frame">
+    		  <div class="split-pane fixed-left" id="split-pane-py">
+    		    <div class="split-pane-component" id="left-component-py">
+    		      <div id="editor-pane-py" class="pretty-split-pane-component-inner">
+    		        <pre id="editorpy"></pre>
+    		        <div class="frame-lable-md clear-white-bg text-center">Python</div>
+    		      </div>
+    		    </div>
+    		    <div class="split-pane-divider" id="vertical-divider-py"></div>
+    		    <div class="split-pane-component" id="right-component-py">
+  		        <div class="pretty-split-pane-component-inner" id="preview-pane-py">
+    		        <iframe id="pyoutput" sandbox="allow-forms allow-popups allow-pointer-lock allow-scripts allow-same-origin" frameborder="0"></iframe>
+    		      </div>
+    		    </div>
+    		  </div>
+    		</div>
     <div id="footer">
       <div id="mode" class="pull-left">
         <span class="glyphicon glyphicon-flash"></span> Mode: HTML/CSS/JS
@@ -125,8 +141,13 @@
                 Theme Setting: <input id="toggle-theme" type="checkbox" checked data-toggle="toggle" data-on="Dark" data-off="Light" data-onstyle="primary" data-offstyle="default" data-size="small">    
                 &nbsp;&nbsp;
                 Wrap?: <input id="toggle-wrap" type="checkbox" checked data-toggle="toggle" data-on="None" data-off="Wrap" data-onstyle="primary" data-offstyle="default" data-size="small">    
-                &nbsp;&nbsp;
-                Markdown Mode: <input id="toggle-md" type="checkbox" checked data-toggle="toggle" data-on="Off" data-off="On" data-onstyle="danger" data-offstyle="success" data-size="small">    
+                <br><br>
+                Editor Mode: 
+                <select id="editor-mode">
+                  <option value="html">HTML/CSS/JavaScript</option>
+                  <option value="markdown">Markdown</option>
+                  <option value="python">Python</option>
+                </select>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -192,6 +213,10 @@
     		
     		<!-- Setup Markdown Converter -->
     		<script src="/js/md2html/markdown.min.js"></script>
+    		
+    		<!-- Setup Python Bridge -->
+    		<script src="/js/pyjs/py.min.js"></script>
+    		<script src="/js/pyjs/pylib.min.js"></script>
 		
 		    <!-- Bring in RequireJS -->
 		    <script type="text/javascript">
