@@ -1,7 +1,7 @@
-
-$('#split-pane-1').splitPane();
-$('#split-pane-md').splitPane();
-$('#split-pane-py').splitPane();
+$('.split-pane').splitPane();
+// $('#split-pane-1').splitPane();
+// $('#split-pane-md').splitPane();
+// $('#split-pane-py').splitPane();
 // $('#md-pane').hide();
 // $('#py-pane').hide();
 

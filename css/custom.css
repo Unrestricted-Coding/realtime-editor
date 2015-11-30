@@ -169,6 +169,7 @@ body, html {
 #horizontal-divider {
 	bottom: 25em;
 	height: 5px;
+	background-color:#999;
 }
 #bottom-component {
 	height: 25em;
@@ -179,6 +180,7 @@ body, html {
 #vertical-divider {
 	left: 45em;
 	width: 5px;
+	background-color:#999;
 }
 #right-component {
 	left: 45em;
@@ -191,6 +193,7 @@ body, html {
 #horizontal-divider2 {
 	bottom: 50%;
 	height: 5px;
+	background-color:#999;
 }
 #bottom-component2 {
 	height: 50%;
