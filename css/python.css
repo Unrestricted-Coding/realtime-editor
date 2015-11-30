@@ -8,6 +8,12 @@ Released under the MIT license
 https://raw.github.com/shagstrom/split-pane/master/LICENSE
 
 */
+body{
+    margin:0;
+    padding:0;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+}
 .split-pane {
 	position: relative;
 	height: 100%;
@@ -125,11 +131,7 @@ https://raw.github.com/shagstrom/split-pane/master/LICENSE
 
 .pretty-split-pane-frame {
 	box-sizing: border-box;
-	
-	padding: 5px;
-	background: #333;
-	border-left:3px solid;
-	border-color:#000;
+	background: #fff;
 }
 
 .pretty-split-pane-frame .split-pane > .split-pane-divider.dragged.touch {
@@ -170,11 +172,34 @@ https://raw.github.com/shagstrom/split-pane/master/LICENSE
 #mycanvas {
     height:100%;
     width:100%;
+    border:0;
 }
 #output {
     height:100%;
     width:100%;
+    border:0;
 }
 #code {
-    display:hidden;
+    display:none;
+}
+.clear-white-bg{
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#adadad+0,adadad+100&amp;0.5+0,0.5+100 */
+    background: -moz-radial-gradient(center, ellipse cover,  rgba(173,173,173,0.5) 0%, rgba(173,173,173,0.5) 100%); /* FF3.6-15 */
+    background: -webkit-radial-gradient(center, ellipse cover,  rgba(173,173,173,0.5) 0%,rgba(173,173,173,0.5) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: radial-gradient(ellipse at center,  rgba(173,173,173,0.5) 0%,rgba(173,173,173,0.5) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#80adadad', endColorstr='#80adadad',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+}
+.frame-label-md {
+    position:absolute;
+    top:0;
+    right:0;
+    margin-right:5px;
+    margin-top:5px;
+    width:80px;
+    height:20px;
+    z-index:100;
+    padding:3px;
+    border-radius:5px;
+    text-align:center;
 }

@@ -2,8 +2,8 @@
 $('#split-pane-1').splitPane();
 $('#split-pane-md').splitPane();
 $('#split-pane-py').splitPane();
-$('#md-pane').hide();
-$('#py-pane').hide();
+// $('#md-pane').hide();
+// $('#py-pane').hide();
 
 ////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// Bootstrap Config /////////////////////////////////////
@@ -88,8 +88,46 @@ var pyflag = false;
 var fullflag = false;
 function makeFullScreen() {
     require(["ace/lib/dom"], function(dom) {
-        if(!mdflag)
+        if(mdflag)
         {
+            if(fullflag)
+            {
+                $('#left-component-md').removeClass('pretty-override');
+                $('#editor-pane-md').removeClass('pretty-override');
+                $('#vertical-divider-md').show();
+                $('#right-component-md').show();
+                fullflag = false;
+            } else {
+                $('#left-component-md').addClass('pretty-override');
+                $('#editor-pane-md').addClass('pretty-override');
+                $('#vertical-divider-md').hide();
+                $('#right-component-md').hide();
+                fullflag = true;
+            }
+            var fullScreen = dom.toggleCssClass(document.body, "fullScreen")
+            dom.setCssClass(mdeditor.container, "fullScreen", fullScreen)
+            mdeditor.setAutoScrollEditorIntoView(!fullScreen)
+            mdeditor.resize();
+        } else if(pyflag) {
+            if(fullflag)
+            {
+                $('#left-component-py').removeClass('pretty-override');
+                $('#editor-pane-py').removeClass('pretty-override');
+                $('#vertical-divider-py').show();
+                $('#right-component-py').show();
+                fullflag = false;
+            } else {
+                $('#left-component-py').addClass('pretty-override');
+                $('#editor-pane-py').addClass('pretty-override');
+                $('#vertical-divider-py').hide();
+                $('#right-component-py').hide();
+                fullflag = true;
+            }
+            var fullScreen = dom.toggleCssClass(document.body, "fullScreen")
+            dom.setCssClass(pyeditor.container, "fullScreen", fullScreen)
+            pyeditor.setAutoScrollEditorIntoView(!fullScreen)
+            pyeditor.resize();
+        }else {
             if(fullflag)
             {
                 $('#editor-pane').removeClass('pretty-override');
@@ -128,25 +166,6 @@ function makeFullScreen() {
             dom.setCssClass(editor.container, "fullScreen", fullScreen)
             editor.setAutoScrollEditorIntoView(!fullScreen)
             editor.resize();
-        } else {
-            if(fullflag)
-            {
-                $('#left-component-md').removeClass('pretty-override');
-                $('#editor-pane-md').removeClass('pretty-override');
-                $('#vertical-divider-md').show();
-                $('#right-component-md').show();
-                fullflag = false;
-            } else {
-                $('#left-component-md').addClass('pretty-override');
-                $('#editor-pane-md').addClass('pretty-override');
-                $('#vertical-divider-md').hide();
-                $('#right-component-md').hide();
-                fullflag = true;
-            }
-            var fullScreen = dom.toggleCssClass(document.body, "fullScreen")
-            dom.setCssClass(mdeditor.container, "fullScreen", fullScreen)
-            mdeditor.setAutoScrollEditorIntoView(!fullScreen)
-            mdeditor.resize();
         }
         
     });
@@ -202,6 +221,7 @@ if (document.addEventListener)
 function exitHandler()
 {
         makeFullScreen();
+        $.notify("Zen Mode Toggled", "info");
 }
 // Set Zen Mode Music
 
@@ -222,6 +242,7 @@ $('#zen-music').click(function(){
        audio.play();
        audioflag = true;
    }
+   $.notify("Zen Music started", "info");
 });
 
 
@@ -231,17 +252,20 @@ $('#zen-music').click(function(){
 
 
 document.getElementById('dlink').onclick = function(code) {
-    if(!mdflag)
+    if(mdflag)
     {
-        var iframe = document.getElementById('thepreview');
-        var iframedoc = iframe.contentDocument || iframe.contentWindow.document;
-        this.href = 'data:text/plain;charset=utf-8,'
-        + encodeURIComponent("<!DOCTYPE html>\n<html>\n<head>" + iframedoc.head.innerHTML + "\n</head>\n<body>\n"+ iframedoc.body.innerHTML + "\n</body>\n</html>\n");
-    } else {
         var iframe = document.getElementById('mdpreview');
         var iframedoc = iframe.contentDocument || iframe.contentWindow.document;
         this.href = 'data:text/plain;charset=utf-8,'
         + encodeURIComponent("<!-- MD Contents\n" + mdeditor.getValue() + "-->\n<!DOCTYPE html>\n<html>\n<head>" + iframedoc.head.innerHTML + "\n</head>\n<body>\n"+ iframedoc.body.innerHTML + "\n</body>\n</html>\n");
+    } else if(pyflag) {
+        this.href = 'data:text/plain;charset=utf-8,'
+        + encodeURIComponent(pyeditor.getValue());
+    } else {
+        var iframe = document.getElementById('thepreview');
+        var iframedoc = iframe.contentDocument || iframe.contentWindow.document;
+        this.href = 'data:text/plain;charset=utf-8,'
+        + encodeURIComponent("<!DOCTYPE html>\n<html>\n<head>" + iframedoc.head.innerHTML + "\n</head>\n<body>\n"+ iframedoc.body.innerHTML + "\n</body>\n</html>\n");
     }
     
 };
@@ -280,7 +304,7 @@ function showHTMLInIFrame() {
         // do call python run here.
         var head = '';
         head += '<link rel="stylesheet" href="https://realtime-preview-shadowcodex1.c9users.io/css/python.css">';
-        var thedocument = '<div id="preview-pane" class="pretty-split-pane-frame"><div class="split-pane fixed-bottom" id="split-pane"><div class="split-pane-component" id="top-component"><div id="canvas-pane" class="pretty-split-pane-component-inner"><div id="mycanvas"></div></div></div><div class="split-pane-divider" id="horizontal-divider"></div><div class="split-pane-component" id="bottom-component"><div id="output-pane" class="pretty-split-pane-component-inner" id="preview-pane-py"><pre id="output" ></pre></div></div></div></div></div></div>';
+        var thedocument = '<div id="preview-pane" class="pretty-split-pane-frame"><div class="split-pane fixed-bottom" id="split-pane"><div class="split-pane-component" id="top-component"><div id="canvas-pane" class="pretty-split-pane-component-inner"><div id="mycanvas"></div><div class="frame-label-md clear-white-bg text-center">Py Canvas</div></div></div><div class="split-pane-divider" id="horizontal-divider"></div><div class="split-pane-component" id="bottom-component"><div id="output-pane" class="pretty-split-pane-component-inner" id="preview-pane-py"><pre id="output" ></pre><div class="frame-label-md clear-white-bg text-center">Py Output</div></div></div></div></div></div></div>';
         thedocument += "<pre id='code'>" + pyeditor.getValue() + "</pre>";
         thedocument += "<script src='https://code.jquery.com/jquery-2.1.4.js'></script>";
         thedocument += "<script src='https://realtime-preview-shadowcodex1.c9users.io/js/split-pane/split-pane.js'></script>";
@@ -575,9 +599,14 @@ $('#preview').change(function(){
         })
         $('#mdpreview').fadeIn(500, function() {
             $('#left-component-md').css("width", '50%');
-            $('#vertical-devider-md').css("left", '50%');
+            $('#vertical-divider-md').css("left", '50%');
             $('#right-component-md').css("left", '50%');
         });
+        $('#pyoutput').fadeIn(500, function(){
+            $('#left-component-py').css("width", '50%');
+            $('#vertical-divider-py').css("left", '50%');
+            $('#right-component-py').css("left", '50%');
+        })
         
     } else {
         $('#thepreview').fadeOut(500, function(){
@@ -593,5 +622,29 @@ $('#preview').change(function(){
             $('#vertical-devider-md').css("left", '100%');
             $('#right-component-md').css("left", '100%');
         });
+        $('#pyoutput').fadeOut(500, function() {
+            $('#left-component-py').css("width", '100%');
+            $('#vertical-divider-py').css("left", '100%');
+            $('#right-component-py').css("left", '100%');
+        })
     }
+})
+
+////////////////////////////////////////////////////////////////////////////////
+///////////////////////// Splash Page Config ///////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+$('#enter-html').click(function() {
+    $('#splash').hide();
+    enableHTML();
+});
+
+$('#enter-md').click(function() {
+    $('#splash').hide();
+    enableMarkdown();
+});
+
+$('#enter-py').click(function() {
+    $('#splash').hide();
+    enablePython();
 })

@@ -41,7 +41,8 @@
               <br><br>
               <button id="zen-mode" type="button" class="btn btn-default btn-sm" title="Enable Zen Mode" data-toggle2="tooltip" data-placement="right"><span class="glyphicon glyphicon-fullscreen"></span></button>
             </div>
-        </div>
+        </div><!-- /end Status Bar -->
+        <!-- Start HTML Pane -->
         <div id="html-pane" class="pretty-split-pane-frame"><!-- This div is added for styling purposes only. It's not part of the split-pane plugin. -->
     			<div class="split-pane fixed-bottom" id="split-pane-1">
     				<div class="split-pane-component" id="top-component">
@@ -80,7 +81,8 @@
     					</div>
     				</div>
     			</div>
-    		</div>
+    		</div><!-- /end HTML pane -->
+    		<!-- Start Markdown pane -->
     		<div id="md-pane" class="pretty-split-pane-frame"><!-- This div is added for styling purposes only. It's not part of the split-pane plugin. -->
     			<div class="split-pane fixed-left" id="split-pane-md">
     						<div class="split-pane-component" id="left-component-md">
@@ -97,13 +99,14 @@
     									</div>
     						</div>
     			</div>
-    		</div>
+    		</div><!-- /end Markdown Pane -->
+    		<!-- start Python Pane -->
     		<div id="py-pane" class="pretty-split-pane-frame">
     		  <div class="split-pane fixed-left" id="split-pane-py">
     		    <div class="split-pane-component" id="left-component-py">
     		      <div id="editor-pane-py" class="pretty-split-pane-component-inner">
     		        <pre id="editorpy"></pre>
-    		        <div class="frame-lable-md clear-white-bg text-center">Python</div>
+    		        <div class="frame-label-md clear-white-bg text-center">Python</div>
     		      </div>
     		    </div>
     		    <div class="split-pane-divider" id="vertical-divider-py"></div>
@@ -113,7 +116,51 @@
     		      </div>
     		    </div>
     		  </div>
-    		</div>
+    		</div><!-- /End Python Pane -->
+    <!-- Start Splash Page -->
+    <div id="splash">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 col-md-offset-3">
+            <br>
+            <img class="img-responsive" src="/img/logo-4.png">
+            <div class="text-center">
+              <h1>Welcome To The UC Realtime Editor!</h1>
+              <p>Within this application you can learn, play, and test your code in a full fledged editor. Please pick your starting mode below, and you can change your mode in settings at anytime.</p>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-md-6 col-md-offset-3">
+            <div class="row">
+              <div class="col-md-4">
+                <button id="enter-html" type="button" class="btn btn-lg btn-block btn-default btn-splash">HTML/CSS/JS</button>
+              </div>
+              <div class="col-md-4">
+                <button id="enter-md" type="button" class="btn btn-lg btn-block btn-warning btn-splash">MARKDOWN</button>
+              </div>
+              <div class="col-md-4">
+                <button id="enter-py" type="button" class="btn btn-lg btn-block btn-danger btn-splash">PYTHON</button>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12 text-center">
+                <p>The following editors have not been finished yet. But will be available soon. They are special Interactive Consoles that are web based. These editors will allow you to work in realtime with various programming languages.</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <button id="enter-js" type="button" class="btn btn-lg btn-block btn-info btn-splash disabled">JavaScript REPL</button>
+              </div>
+              <div class="col-md-6">
+                <button id="enter-prb" type="button" class="btn btn-lg btn-block btn-success btn-splash disabled">Python REPL</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /end splash page -->
     <div id="footer">
       <div id="mode" class="pull-left">
         <span class="glyphicon glyphicon-flash"></span> Mode: HTML/CSS/JS
