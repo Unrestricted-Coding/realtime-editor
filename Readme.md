@@ -18,3 +18,6 @@ To learn more about Unrestricted Coding please visit our site.
 [Unrestricted Coding](http://unrestrictedcoding.com)
 
 We have a live demo and preview setup for this editor, but to view it you must sign up for the beta at our site.
+
+Music Credit:
+Quiet Rain by onlymeith (c) 2011 Licensed under a Creative Commons Attribution (3.0) license. <a href="http://ccmixter.org/files/onlymeith/33867">http://ccmixter.org/files/onlymeith/33867</a> Ft: Gurdonark
