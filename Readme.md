@@ -1,5 +1,7 @@
 [![Slack Status](https://uc-slack.herokuapp.com/badge.svg)](https://uc-slack.herokuapp.com)
 
+## This Repo Will be rebuilt once we finish the rewrite of Firepad to use Rethinkdb. Please see [This Github Repository](https://github.com/shadowcodex/firepad-rethinkdb) for more info.
+
 # UC Realtime Editor
 This is a realtime editor built for Unrestricted Coding. It allows you to work with HTML/CSS/JavaScript with a realtime preview and an option to do a realtime collaboration section.
 
