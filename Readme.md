@@ -1,3 +1,5 @@
+Currently I left this in a buggy state. I'll revisit it someday...
+
 
 # UC Realtime Editor
 This is a realtime editor built for Unrestricted Coding. It allows you to work with HTML/CSS/JavaScript with a realtime preview and an option to do a realtime collaboration section.
